@@ -53,7 +53,6 @@ def youtube_thumbnails( video_id ):
     api_url = "https://www.googleapis.com/youtube/v3/videos?part=snippet%2CrecordingDetails&"
     api_url += "id=%s&" % video_id
     api_url += "key=%s" % youtube_key
-    # print "[*] api_url: %s" % api_url
 
     response = requests.get(api_url)
 
@@ -74,8 +73,8 @@ def youtube_upnextlist( url ):
 
     unl = []
     for item in soup.find_all('li', class_="related-list-item"):
-        #print "[II]   %s @ youtube.com%s." % (item.div.a['title'],item.div.a['href'])
-        unl.append( [ item.div.a['title'], item.div.a['href'] ] )
+        if item.div is not None:
+            unl.append( [ item.div.a['title'], item.div.a['href'] ] )
 
     return unl
     
